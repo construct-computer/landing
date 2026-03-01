@@ -111,21 +111,20 @@ export default function Dock() {
   const [mouseX, setMouseX] = useState<number | null>(null);
 
   return (
-    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[3]">
+    <div className="flex justify-center w-full">
       <div className="relative">
         {/* Glass shelf */}
         <div
           className="absolute bottom-0 -inset-x-5 h-[46px]
-                     bg-gradient-to-b from-white/[0.06] to-white/[0.12]
-                     backdrop-blur-2xl border-t border-white/[0.08]
-                     rounded-2xl"
+                     bg-gradient-to-b from-white/[0.04] to-white/[0.10]
+                     backdrop-blur-2xl border-t border-white/[0.06]"
           style={{
             clipPath: "polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%)",
           }}
         />
         {/* Shelf top edge highlight */}
         <div
-          className="absolute -inset-x-5 h-px bg-white/10 rounded-full"
+          className="absolute -inset-x-5 h-px bg-white/[0.06]"
           style={{ bottom: 45 }}
         />
 

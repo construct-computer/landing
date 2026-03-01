@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Dock from "./Dock";
@@ -6,47 +6,45 @@ import Dock from "./Dock";
 gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 1021;
-const FRAME_PAD = 4;
 
-function getFrameSrc(index: number): string {
-  const clamped = Math.min(Math.max(index, 1), FRAME_COUNT);
-  const padded = String(clamped).padStart(FRAME_PAD, "0");
-  return `/frames/frame_${padded}.jpg`;
+function getFrameSrc(i: number): string {
+  return `/frames/frame_${String(Math.min(Math.max(i, 1), FRAME_COUNT)).padStart(4, "0")}.jpg`;
+}
+
+/** Bounds of the image drawn in contain mode, relative to the sticky container */
+interface FrameBounds {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }
 
 export default function FrameSequence() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const frameObj = useRef({ value: 0 });
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const boundsRef = useRef<FrameBounds>({ x: 0, y: 0, w: 0, h: 0 });
+  const [bounds, setBounds] = useState<FrameBounds>({ x: 0, y: 0, w: 0, h: 0 });
+  const [dockVisible, setDockVisible] = useState(false);
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const canvas = canvasRef.current;
-    if (!wrapper || !canvas) return;
+  const NAV_HEIGHT = 80;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Navbar height + extra breathing room
-    const NAV_HEIGHT = 80;
-
-    // ── Size canvas to viewport minus navbar and handle resize ──
-    function resizeCanvas() {
+  /** Draw current frame and update bounds */
+  const drawFrame = useCallback(
+    (img: HTMLImageElement) => {
+      const canvas = canvasRef.current;
       if (!canvas) return;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight - NAV_HEIGHT;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    // ── Draw image as "contain" — fits entire image, centered, no crop ──
-    function drawContain(img: HTMLImageElement) {
-      if (!ctx || !canvas) return;
       const cw = canvas.width;
       const ch = canvas.height;
       const iw = img.naturalWidth;
       const ih = img.naturalHeight;
+      if (!iw || !ih) return;
 
       const scale = Math.min(cw / iw, ch / ih);
       const dw = iw * scale;
@@ -56,35 +54,77 @@ export default function FrameSequence() {
 
       ctx.clearRect(0, 0, cw, ch);
       ctx.drawImage(img, 0, 0, iw, ih, dx, dy, dw, dh);
+
+      // Update bounds (CSS pixels, relative to sticky container)
+      const dpr = window.devicePixelRatio || 1;
+      const newBounds: FrameBounds = {
+        x: dx / dpr,
+        y: dy / dpr + NAV_HEIGHT,
+        w: dw / dpr,
+        h: dh / dpr,
+      };
+
+      // Only trigger state update if bounds actually changed
+      const prev = boundsRef.current;
+      if (
+        Math.abs(prev.x - newBounds.x) > 1 ||
+        Math.abs(prev.y - newBounds.y) > 1 ||
+        Math.abs(prev.w - newBounds.w) > 1 ||
+        Math.abs(prev.h - newBounds.h) > 1
+      ) {
+        boundsRef.current = newBounds;
+        setBounds(newBounds);
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const canvas = canvasRef.current;
+    if (!wrapper || !canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // ── Resize canvas at device pixel ratio for sharp rendering ──
+    function resizeCanvas() {
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const w = window.innerWidth;
+      const h = window.innerHeight - NAV_HEIGHT;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      // Re-draw current frame after resize
+      const idx = Math.round(frameObj.current.value);
+      const img = imagesRef.current[idx];
+      if (img?.complete) drawFrame(img);
     }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
     // ── Preload frames ──
-    const images: HTMLImageElement[] = [];
     let firstRendered = false;
-
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       img.src = getFrameSrc(i);
       img.onload = () => {
         if (!firstRendered) {
           firstRendered = true;
-          drawContain(img);
+          drawFrame(img);
         }
       };
-      images.push(img);
+      imagesRef.current.push(img);
     }
 
     function render(index: number) {
-      if (!ctx || !canvas) return;
-      const img = images[Math.round(index)];
-      if (img && img.complete) {
-        drawContain(img);
-      }
+      const img = imagesRef.current[Math.round(index)];
+      if (img?.complete) drawFrame(img);
     }
 
-    // ── Scroll-driven frame scrubbing ──
-    // All frames complete in the first 80% of scroll.
-    // The remaining 20% is reserved for the fade to black.
+    // ── Scroll-driven frame scrubbing: 0-80% of wrapper ──
     gsap.to(frameObj.current, {
       value: FRAME_COUNT - 1,
       ease: "none",
@@ -94,10 +134,14 @@ export default function FrameSequence() {
         end: "80% bottom",
         scrub: 0.4,
       },
-      onUpdate: () => render(frameObj.current.value),
+      onUpdate: () => {
+        const idx = frameObj.current.value;
+        render(idx);
+        setDockVisible(idx >= 40);
+      },
     });
 
-    // ── Fade to black AFTER all frames have played ──
+    // ── Fade to black: 82-100% of wrapper ──
     if (fadeRef.current) {
       gsap.fromTo(
         fadeRef.current,
@@ -121,20 +165,32 @@ export default function FrameSequence() {
         .filter((t) => wrapper?.contains(t.trigger as Element))
         .forEach((t) => t.kill());
     };
-  }, []);
+  }, [drawFrame]);
 
   return (
     <div ref={wrapperRef} className="relative bg-black" style={{ height: "600vh" }}>
-      {/* Canvas in normal flow, centered */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div ref={stickyRef} className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Canvas */}
         <canvas
           ref={canvasRef}
-          className="absolute left-0 right-0 w-full h-fit rounded-3xl"
-          style={{ top: 80, height: "calc(100% - 80px)" }}
+          className="absolute left-0 right-0"
+          style={{ top: NAV_HEIGHT }}
         />
 
-        {/* Dock at bottom of screen */}
-        <Dock />
+        {/* Dock — anchored to the bottom edge of the rendered frame image, slides in at frame 40 */}
+        {bounds.w > 0 && (
+          <div
+            className="absolute left-0 right-0 z-[3] transition-all duration-700 ease-out"
+            style={{
+              top: bounds.y + bounds.h - 64,
+              opacity: dockVisible ? 1 : 0,
+              transform: dockVisible ? "translateY(0)" : "translateY(60px)",
+              pointerEvents: dockVisible ? "auto" : "none",
+            }}
+          >
+            <Dock />
+          </div>
+        )}
 
         {/* Top fade from black — blends from hero */}
         <div className="absolute top-0 left-0 right-0 h-[25%] bg-gradient-to-b from-black to-transparent pointer-events-none z-[4]" />
@@ -142,7 +198,7 @@ export default function FrameSequence() {
         {/* Fade-to-black overlay at end */}
         <div
           ref={fadeRef}
-          className="absolute inset-0 bg-black pointer-events-none z-[4]"
+          className="absolute inset-0 bg-black pointer-events-none z-[5]"
         />
       </div>
     </div>
