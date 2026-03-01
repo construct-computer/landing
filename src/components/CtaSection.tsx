@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { animate } from "animejs";
+import WaitlistForm from "./WaitlistForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function CtaSection() {
   const logoRef = useRef<HTMLImageElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
-  const btnRef = useRef<HTMLAnchorElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
 
   const videoSrc = "/bg_h.mp4";
 
@@ -121,15 +122,9 @@ export default function CtaSection() {
           Join our wait list and, become part of the new meta.
         </p>
 
-        <a
-          ref={btnRef}
-          href="#"
-          className="mt-8 md:mt-10 px-8 md:px-10 py-3.5 md:py-4 rounded-full text-white font-semibold text-sm md:text-base no-underline
-                     bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30
-                     backdrop-blur-sm transition-all duration-300 opacity-0"
-        >
-          Get Early Access
-        </a>
+        <div ref={btnRef} className="mt-8 md:mt-10 opacity-0">
+          <WaitlistForm size="lg" />
+        </div>
       </div>
     </section>
   );

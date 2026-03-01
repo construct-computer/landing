@@ -7,16 +7,10 @@ interface DockItemConfig {
 }
 
 const dockItems: DockItemConfig[] = [
-  { id: "terminal", label: "Terminal", icon: "/icons/terminal.png" },
-  { id: "chrome",   label: "Browser",  icon: "/icons/chrome.png" },
-  { id: "email",    label: "Mail",     icon: "/icons/email.png" },
-  { id: "github",   label: "GitHub",   icon: "/icons/github.png" },
-  { id: "vscode",   label: "VS Code",  icon: "/icons/vscode.png" },
-  { id: "safari",   label: "Safari",   icon: "/icons/safari.png" },
-  { id: "meet",     label: "Meet",     icon: "/icons/meet.png" },
   { id: "files",    label: "Files",    icon: "/icons/file.png" },
-  { id: "drive",    label: "Drive",    icon: "/icons/drive.png" },
-  { id: "twitter",  label: "Twitter",  icon: "/icons/twitter.png" },
+  { id: "terminal", label: "Terminal", icon: "/icons/terminal.png" },
+  { id: "safari",   label: "Safari",   icon: "/icons/safari.png" },
+  { id: "email",    label: "Mail",     icon: "/icons/email.png" },
 ];
 
 // Gaussian magnification constants
@@ -115,7 +109,7 @@ export default function Dock() {
       <div className="relative">
         {/* Glass shelf */}
         <div
-          className="absolute bottom-0 -inset-x-5 h-[46px]
+          className="absolute bottom-0 -inset-x-2 h-[46px]
                      bg-gradient-to-b from-white/[0.04] to-white/[0.10]
                      backdrop-blur-2xl border-t border-white/[0.06]"
           style={{
@@ -124,14 +118,14 @@ export default function Dock() {
         />
         {/* Shelf top edge highlight */}
         <div
-          className="absolute -inset-x-5 h-px bg-white/[0.06]"
+          className="absolute -inset-x-2 h-px bg-white/[0.06]"
           style={{ bottom: 45 }}
         />
 
         {/* Icons row */}
         <div
           ref={dockRef}
-          className="relative flex items-end gap-0.5 px-5 pb-[8px]"
+          className="relative flex items-end gap-0.5 px-2 pb-[8px]"
           onMouseMove={(e) => setMouseX(e.clientX)}
           onMouseLeave={() => setMouseX(null)}
         >

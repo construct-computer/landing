@@ -18,6 +18,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
+      aria-label="Main navigation"
       className="fixed top-0 left-0 right-0 z-50 opacity-0"
       style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
     >
@@ -32,14 +33,13 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
         </div>
 
-        {/* CTA — add your own href here */}
         <a
-          href="#"
+          href="#hero"
           className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-white rounded-full no-underline
                      border border-white/20 hover:border-white/40 transition-all duration-200
                      bg-white/5 hover:bg-white/10"
         >
-          Get Early Access
+          Join Waitlist
         </a>
       </div>
     </nav>

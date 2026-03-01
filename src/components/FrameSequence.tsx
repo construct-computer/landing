@@ -189,7 +189,7 @@ export default function FrameSequence() {
         trigger: wrapper,
         start: "top top",
         end: "80% bottom",
-        scrub: 0.4,
+        scrub: 1.5,
       },
       onUpdate: () => {
         if (video.duration) {
@@ -217,6 +217,8 @@ export default function FrameSequence() {
       );
     }
 
+
+
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       video.removeEventListener("seeked", onSeeked);
@@ -235,7 +237,7 @@ export default function FrameSequence() {
   }, [drawFrame, seekTo]);
 
   // Shorter scroll on mobile
-  const scrollHeight = isMobile ? "300vh" : "600vh";
+  const scrollHeight = isMobile ? "500vh" : "1000vh";
 
   return (
     <div

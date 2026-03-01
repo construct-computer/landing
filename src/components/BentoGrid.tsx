@@ -216,7 +216,7 @@ export default function BentoGrid() {
             ref={(el) => {
               cardsRef.current[1] = el;
             }}
-            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 min-h-[340px] md:min-h-[420px]"
+            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 aspect-[1/2]"
           >
             {/* blur3 background — purple/cyan diagonal */}
             <img
@@ -243,24 +243,7 @@ export default function BentoGrid() {
                 Agents on Construct maintain every record of their action. These
                 records are on the cloud and can be accessed from everywhere
               </p>
-              <a
-                href="#"
-                className="mt-5 mx-auto inline-flex items-center gap-1.5 text-xs font-medium text-white
-                           bg-black/40 border border-white/15 rounded-full px-5 py-2
-                           hover:bg-black/60 transition-all no-underline"
-              >
-                See how
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
+
 
             </div>
 

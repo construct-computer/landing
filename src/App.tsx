@@ -11,12 +11,14 @@ function App() {
   return (
     <div className="bg-black min-h-screen">
       <Navbar />
-      <Hero />
-      <FrameSequence />
-      <Features />
-      <Integrations />
-      <BentoGrid />
-      <CtaSection />
+      <main>
+        <Hero />
+        <FrameSequence />
+        <Features />
+        <Integrations />
+        <BentoGrid />
+        <CtaSection />
+      </main>
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { animate } from "animejs";
+import WaitlistForm from "./WaitlistForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function Hero() {
   const headingRef = useRef<HTMLDivElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   const videoSrc = "/bg_h.mp4";
 
@@ -83,13 +84,14 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={sectionRef}
       className="relative h-screen bg-black overflow-hidden"
     >
       {/* Background video — portrait on mobile, landscape on desktop */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover mt-20"
         style={{ objectPosition: "center 60%" }}
         src={videoSrc}
         autoPlay
@@ -145,15 +147,9 @@ export default function Hero() {
         />
 
         {/* CTA */}
-        <a
-          ref={ctaRef}
-          href="#"
-          className="mt-6 md:mt-8 px-8 md:px-10 py-3 md:py-3.5 rounded-full text-white font-medium text-sm md:text-base no-underline
-                     bg-white/[0.06] border border-white/15 hover:bg-white/10 hover:border-white/25
-                     backdrop-blur-sm transition-all duration-300 opacity-0"
-        >
-          Get Early Access
-        </a>
+        <div ref={ctaRef} className="mt-6 md:mt-8 opacity-0">
+          <WaitlistForm size="md" />
+        </div>
       </div>
     </section>
   );
