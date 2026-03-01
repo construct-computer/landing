@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Dock from "./Dock";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -132,13 +133,16 @@ export default function FrameSequence() {
           style={{ top: 80, height: "calc(100% - 80px)" }}
         />
 
+        {/* Dock at bottom of screen */}
+        <Dock />
+
         {/* Top fade from black — blends from hero */}
-        <div className="absolute top-0 left-0 right-0 h-[25%] bg-gradient-to-b from-black to-transparent pointer-events-none z-[2]" />
+        <div className="absolute top-0 left-0 right-0 h-[25%] bg-gradient-to-b from-black to-transparent pointer-events-none z-[4]" />
 
         {/* Fade-to-black overlay at end */}
         <div
           ref={fadeRef}
-          className="absolute inset-0 bg-black pointer-events-none z-[2]"
+          className="absolute inset-0 bg-black pointer-events-none z-[4]"
         />
       </div>
     </div>
