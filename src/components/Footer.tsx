@@ -62,10 +62,10 @@ export default function Footer() {
 
           {/* Right: Social Icons */}
           <div className="flex items-center gap-5 opacity-60">
-            <a href="#" className="hover:opacity-100 transition-opacity">
+            <a href="https://x.com/use_construct" target="_blank" className="hover:opacity-100 transition-opacity">
               <img src="/x-icon.png" alt="X / Twitter" className="w-5 h-5 object-contain" />
             </a>
-            <a href="#" className="hover:opacity-100 transition-opacity">
+            <a href="https://discord.gg/puArEQHYN9" target="_blank" className="hover:opacity-100 transition-opacity">
               <img src="/discord-Icon.png" alt="Discord" className="w-6 h-6 object-contain" />
             </a>
           </div>
