@@ -65,7 +65,7 @@ function App() {
                       transition-opacity duration-500 ${fadeOut ? "opacity-0" : "opacity-100"}`}
         >
           <span
-            className="text-white/50 text-sm italic tracking-tight"
+            className="text-white/50 text-2xl italic tracking-tight"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
           >
             Construct is Loading
