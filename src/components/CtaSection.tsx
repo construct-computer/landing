@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { animate } from "animejs";
@@ -14,10 +14,7 @@ export default function CtaSection() {
   const subRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLAnchorElement>(null);
 
-  // Pick vertical video for portrait / narrow screens
-  const [videoSrc] = useState(() =>
-    window.innerWidth < 768 ? "/bg_v.mp4" : "/bg_h.mp4"
-  );
+  const videoSrc = "/bg_h.mp4";
 
   useEffect(() => {
     if (!sectionRef.current) return;

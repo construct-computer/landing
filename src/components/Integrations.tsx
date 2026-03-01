@@ -76,33 +76,37 @@ export default function Integrations() {
     // ── 3D Orbital animation ──
     const icons = iconElsRef.current;
     if (orbitRef.current && icons.length > 0) {
+      // Per-icon entrance progress (0 → 1), driven by GSAP tweens
+      const entrance = icons.map(() => ({ v: 0 }));
+
       ScrollTrigger.create({
         trigger: orbitRef.current,
         start: "top 75%",
         once: true,
         onEnter: () => {
-          // Stagger entrance — icons pop in one by one
-          icons.forEach((el, i) => {
-            gsap.fromTo(
-              el,
-              { opacity: 0, scale: 0.2 },
-              {
-                opacity: 1,
-                scale: 1,
-                duration: 0.9,
-                ease: "back.out(1.7)",
-                delay: i * 0.08,
-              }
-            );
+          // Stagger entrance — each icon fades in at its orbital position
+          icons.forEach((_, i) => {
+            gsap.to(entrance[i], {
+              v: 1,
+              duration: 1,
+              ease: "power2.out",
+              delay: i * 0.1,
+            });
           });
 
-          // Start the continuous orbit after entrance finishes
+          // Start orbit immediately — entrance blends in smoothly
           let start = 0;
           const tick = (now: number) => {
             if (!start) start = now;
             const elapsed = (now - start) / 1000;
 
             icons.forEach((el, i) => {
+              const ep = entrance[i].v; // 0 → 1 entrance progress
+              if (ep < 0.001) {
+                el.style.opacity = "0";
+                return;
+              }
+
               const baseAngle = (i / icons.length) * 2 * Math.PI;
               const angle = baseAngle + elapsed * SPEED;
 
@@ -113,9 +117,13 @@ export default function Integrations() {
               const depth = Math.sin(angle);
               const t = (depth + 1) / 2; // 0 = fully behind … 1 = fully in front
 
-              const scale = 0.4 + t * 0.7;      // 0.4 → 1.1
-              const opacity = 0.08 + t * 0.92;   // nearly invisible behind → full
+              const orbitScale = 0.4 + t * 0.7;
+              const orbitOpacity = 0.08 + t * 0.92;
               const zIdx = depth > 0 ? 20 : 5;
+
+              // Blend orbit values with entrance progress
+              const scale = orbitScale * (0.3 + ep * 0.7);  // starts small, reaches full orbit scale
+              const opacity = orbitOpacity * ep;
 
               el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
               el.style.opacity = String(opacity);
@@ -125,10 +133,7 @@ export default function Integrations() {
             rafRef.current = requestAnimationFrame(tick);
           };
 
-          // Delay orbit start so pop-in entrance completes first
-          setTimeout(() => {
-            rafRef.current = requestAnimationFrame(tick);
-          }, 900);
+          rafRef.current = requestAnimationFrame(tick);
         },
       });
     }
