@@ -21,13 +21,17 @@ export default function CtaSection() {
     if (!sectionRef.current) return;
     const triggers: ScrollTrigger[] = [];
 
-    // Play video when in view
-    if (videoRef.current) {
+    // Play video when in view (force play for iOS)
+    const video = videoRef.current;
+    if (video) {
+      const forcePlay = () => { video.play().catch(() => {}); };
       triggers.push(ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 80%",
-        onEnter: () => videoRef.current?.play(),
-        onLeaveBack: () => videoRef.current?.pause(),
+        onEnter: forcePlay,
+        onEnterBack: forcePlay,
+        onLeaveBack: () => video.pause(),
+        onLeave: () => video.pause(),
       }));
     }
 
@@ -89,6 +93,7 @@ export default function CtaSection() {
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover opacity-30"
         src={videoSrc}
+        autoPlay
         muted
         loop
         playsInline

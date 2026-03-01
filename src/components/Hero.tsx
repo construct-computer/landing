@@ -21,6 +21,19 @@ export default function Hero() {
     const section = sectionRef.current;
     if (!section) return;
 
+    // ── Force autoplay on mobile (iOS ignores autoplay attribute) ──
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {});
+      // Retry on visibility change (e.g. tab switch back)
+      const onVisible = () => {
+        if (document.visibilityState === "visible") video.play().catch(() => {});
+      };
+      document.addEventListener("visibilitychange", onVisible);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (section as any).__cleanupVideo = () => document.removeEventListener("visibilitychange", onVisible);
+    }
+
     // ── Entrance animations (animejs) ──
     if (headingRef.current) {
       animate(headingRef.current, {
@@ -76,6 +89,8 @@ export default function Hero() {
     );
 
     return () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (section as any).__cleanupVideo?.();
       ScrollTrigger.getAll()
         .filter((t) => section?.contains(t.trigger as Element))
         .forEach((t) => t.kill());
