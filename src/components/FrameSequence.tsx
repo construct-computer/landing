@@ -32,6 +32,9 @@ export default function FrameSequence() {
 
   const NAV_HEIGHT = 80;
 
+  // Detect mobile once on mount
+  const [isMobile] = useState(() => window.innerWidth < 768);
+
   /** Draw current frame and update bounds */
   const drawFrame = useCallback(
     (img: HTMLImageElement) => {
@@ -167,8 +170,11 @@ export default function FrameSequence() {
     };
   }, [drawFrame]);
 
+  // Shorter scroll distance on mobile so users don't scroll forever
+  const scrollHeight = isMobile ? "300vh" : "600vh";
+
   return (
-    <div ref={wrapperRef} className="relative bg-black" style={{ height: "600vh" }}>
+    <div ref={wrapperRef} className="relative bg-black" style={{ height: scrollHeight }}>
       <div ref={stickyRef} className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Canvas */}
         <canvas
@@ -177,8 +183,8 @@ export default function FrameSequence() {
           style={{ top: NAV_HEIGHT }}
         />
 
-        {/* Dock — anchored to the bottom edge of the rendered frame image, slides in at frame 40 */}
-        {bounds.w > 0 && (
+        {/* Dock — desktop only, anchored to bottom of rendered frame */}
+        {!isMobile && bounds.w > 0 && (
           <div
             className="absolute left-0 right-0 z-[3] transition-all duration-700 ease-out"
             style={{

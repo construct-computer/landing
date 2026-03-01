@@ -10,7 +10,7 @@ function AppIcon({ src, alt }: { src: string; alt: string }) {
     <img
       src={src}
       alt={alt}
-      className="feat-icon w-10 h-10 md:w-12 md:h-12 mx-1.5 object-contain shrink-0
+      className="feat-icon w-8 h-8 md:w-12 md:h-12 mx-1 md:mx-1.5 object-contain shrink-0
                  drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]
                  transition-transform duration-300 hover:scale-110"
       draggable={false}
@@ -103,25 +103,25 @@ export default function Features() {
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-white/[0.02] blur-3xl pointer-events-none z-0" />
 
-      <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-6 text-center pt-[45vh]">
+      <div ref={contentRef} className="relative z-10 max-w-4xl mx-auto px-4 md:px-6 text-center pt-[35vh] md:pt-[45vh]">
         {/* Line 1 */}
         <div ref={(el) => { linesRef.current[0] = el; }} className="mb-2 flex items-center justify-center flex-wrap gap-y-2">
-          <span className="feat-text text-2xl md:text-4xl text-white italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-white italic" style={font}>
             Now, Managing Your <span className="text-[#6cb4ee]">Mails</span>
           </span>
           <AppIcon src="/icons/email.png" alt="Mail" />
-          <span className="feat-text text-2xl md:text-4xl text-white italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-white italic" style={font}>
             Making <span className="text-[#6cb4ee]">Workflows,</span>
           </span>
         </div>
 
         {/* Line 2 */}
         <div ref={(el) => { linesRef.current[1] = el; }} className="mb-2 flex items-center justify-center flex-wrap gap-y-2">
-          <span className="feat-text text-2xl md:text-4xl text-white italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-white italic" style={font}>
             Handling <span className="text-[#6cb4ee]">Codebases</span>
           </span>
           <AppIcon src="/icons/github.png" alt="GitHub" />
-          <span className="feat-text text-2xl md:text-4xl text-white italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-white italic" style={font}>
             Accessing <span className="text-[#6cb4ee]">Socials,</span>
           </span>
           <AppIcon src="/icons/twitter.png" alt="X / Twitter" />
@@ -129,11 +129,11 @@ export default function Features() {
 
         {/* Line 3 */}
         <div ref={(el) => { linesRef.current[2] = el; }} className="flex items-center justify-center flex-wrap gap-y-2">
-          <span className="feat-text text-2xl md:text-4xl text-white italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-white italic" style={font}>
             Deep Searching on
           </span>
           <AppIcon src="/icons/safari.png" alt="Safari" />
-          <span className="feat-text text-2xl md:text-4xl text-[#6cb4ee] italic" style={font}>
+          <span className="feat-text text-xl md:text-4xl text-[#6cb4ee] italic" style={font}>
             Browser.
           </span>
         </div>

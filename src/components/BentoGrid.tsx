@@ -137,12 +137,12 @@ export default function BentoGrid() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-28 md:py-40 bg-black overflow-hidden"
+      className="relative py-20 md:py-40 bg-black overflow-hidden"
     >
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[250px] rounded-full bg-white/[0.02] blur-[100px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4 md:px-6">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-14 opacity-0">
           <h2
@@ -166,7 +166,7 @@ export default function BentoGrid() {
             ref={(el) => {
               cardsRef.current[0] = el;
             }}
-            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 min-h-[420px]"
+            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 min-h-[340px] md:min-h-[420px]"
           >
             {/* blur1 background — warm sunset */}
             <img
@@ -216,7 +216,7 @@ export default function BentoGrid() {
             ref={(el) => {
               cardsRef.current[1] = el;
             }}
-            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 min-h-[420px]"
+            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 min-h-[340px] md:min-h-[420px]"
           >
             {/* blur3 background — purple/cyan diagonal */}
             <img
@@ -280,7 +280,7 @@ export default function BentoGrid() {
             ref={(el) => {
               cardsRef.current[2] = el;
             }}
-            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 min-h-[420px]"
+            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 min-h-[340px] md:min-h-[420px]"
           >
             {/* blur2 background — dark with subtle top-right glow */}
             <img

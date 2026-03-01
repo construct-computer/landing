@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { animate } from "animejs";
@@ -13,6 +13,11 @@ export default function Hero() {
   const subRef = useRef<HTMLParagraphElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
+
+  // Pick vertical video for portrait / narrow screens
+  const [videoSrc] = useState(() =>
+    window.innerWidth < 768 ? "/bg_v.mp4" : "/bg_h.mp4"
+  );
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -84,12 +89,12 @@ export default function Hero() {
       ref={sectionRef}
       className="relative h-screen bg-black overflow-hidden"
     >
-      {/* Background video */}
+      {/* Background video — portrait on mobile, landscape on desktop */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full top-20 object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ objectPosition: "center 60%" }}
-        src="/bg_h.mp4"
+        src={videoSrc}
         autoPlay
         muted
         loop
@@ -112,7 +117,7 @@ export default function Hero() {
             className="text-white font-normal italic text-center"
             style={{
               fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: "clamp(2.5rem, 5vw, 3.24rem)",
+              fontSize: "clamp(2rem, 5vw, 3.24rem)",
               lineHeight: "1.12",
               letterSpacing: "0",
             }}
@@ -126,10 +131,10 @@ export default function Hero() {
         {/* Subtitle */}
         <p
           ref={subRef}
-          className="mt-5 text-base md:text-lg text-white/50 text-center max-w-xl leading-relaxed opacity-0"
+          className="mt-4 md:mt-5 text-sm md:text-lg text-white/50 text-center max-w-xl leading-relaxed opacity-0 px-4"
         >
           Deploy AI agents to the cloud. They research, code and create.
-          <br />
+          <br className="hidden md:block" />
           Scheduled, persistent, from any device.
         </p>
 
@@ -138,7 +143,7 @@ export default function Hero() {
           ref={logoRef}
           src="/logo.png"
           alt="Construct Computer"
-          className="mt-8 w-48 h-48 md:w-64 md:h-64 object-contain opacity-0"
+          className="mt-6 md:mt-8 w-36 h-36 md:w-64 md:h-64 object-contain opacity-0"
           draggable={false}
         />
 
@@ -146,7 +151,7 @@ export default function Hero() {
         <a
           ref={ctaRef}
           href="#"
-          className="mt-8 px-10 py-3.5 rounded-full text-white font-medium text-base no-underline
+          className="mt-6 md:mt-8 px-8 md:px-10 py-3 md:py-3.5 rounded-full text-white font-medium text-sm md:text-base no-underline
                      bg-white/[0.06] border border-white/15 hover:bg-white/10 hover:border-white/25
                      backdrop-blur-sm transition-all duration-300 opacity-0"
         >

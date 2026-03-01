@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { animate } from "animejs";
@@ -13,6 +13,11 @@ export default function CtaSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLAnchorElement>(null);
+
+  // Pick vertical video for portrait / narrow screens
+  const [videoSrc] = useState(() =>
+    window.innerWidth < 768 ? "/bg_v.mp4" : "/bg_h.mp4"
+  );
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -80,12 +85,12 @@ export default function CtaSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-48 bg-black overflow-hidden">
-      {/* Background video */}
+    <section ref={sectionRef} className="relative py-24 md:py-48 bg-black overflow-hidden">
+      {/* Background video — portrait on mobile */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover opacity-30"
-        src="/bg_h.mp4"
+        src={videoSrc}
         muted
         loop
         playsInline
@@ -101,27 +106,28 @@ export default function CtaSection() {
           ref={logoRef}
           src="/logo.png"
           alt="Construct Computer"
-          className="w-28 h-28 md:w-36 md:h-36 object-contain mb-8 opacity-0"
+          className="w-20 h-20 md:w-36 md:h-36 object-contain mb-6 md:mb-8 opacity-0"
         />
 
         <h2
           ref={headingRef}
-          className="text-4xl md:text-6xl font-normal italic text-white leading-tight opacity-0"
+          className="text-3xl md:text-5xl lg:text-6xl font-normal italic text-white leading-tight opacity-0"
           style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
         >
           Be The First To Try
           <br />
-          The Most Powerful <span className="text-[#6cb4ee]">Agentic Protocol</span>
+          The Most Powerful{" "}
+          <span className="text-[#6cb4ee]">Agentic Protocol</span>
         </h2>
 
-        <p ref={subRef} className="mt-6 text-white/50 text-base md:text-lg max-w-lg opacity-0">
+        <p ref={subRef} className="mt-4 md:mt-6 text-white/50 text-sm md:text-lg max-w-lg opacity-0 px-4">
           Join our wait list and, become part of the new meta.
         </p>
 
         <a
           ref={btnRef}
           href="#"
-          className="mt-10 px-10 py-4 rounded-full text-white font-semibold text-base no-underline
+          className="mt-8 md:mt-10 px-8 md:px-10 py-3.5 md:py-4 rounded-full text-white font-semibold text-sm md:text-base no-underline
                      bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30
                      backdrop-blur-sm transition-all duration-300 opacity-0"
         >

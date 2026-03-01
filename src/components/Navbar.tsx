@@ -35,7 +35,7 @@ export default function Navbar() {
         {/* CTA — add your own href here */}
         <a
           href="#"
-          className="px-4 py-2 text-sm font-medium text-white rounded-full no-underline
+          className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-white rounded-full no-underline
                      border border-white/20 hover:border-white/40 transition-all duration-200
                      bg-white/5 hover:bg-white/10"
         >
