@@ -24,7 +24,7 @@ export default function CtaSection() {
     // Play video when in view (force play for iOS)
     const video = videoRef.current;
     if (video) {
-      const forcePlay = () => { video.play().catch(() => {}); };
+      const forcePlay = () => { video.play().catch(() => { }); };
       triggers.push(ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 80%",
@@ -114,7 +114,7 @@ export default function CtaSection() {
 
         <h2
           ref={headingRef}
-          className="text-3xl md:text-5xl lg:text-6xl font-normal italic text-white leading-tight opacity-0"
+          className="text-3xl md:text-5xl font-normal italic text-white leading-tight opacity-0"
           style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
         >
           Be The First To Try

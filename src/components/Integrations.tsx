@@ -5,16 +5,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const ICONS = [
-  { name: "Twitter",  icon: "/icons/twitter.png"  },
-  { name: "Drive",    icon: "/icons/drive.png"     },
-  { name: "Email",    icon: "/icons/email.png"     },
-  { name: "GitHub",   icon: "/icons/github.png"    },
-  { name: "File",     icon: "/icons/file.png"      },
-  { name: "Meet",     icon: "/icons/meet.png"      },
-  { name: "Safari",   icon: "/icons/safari.png"    },
-  { name: "Terminal", icon: "/icons/terminal.png"  },
-  { name: "Chrome",   icon: "/icons/chrome.png"    },
-  { name: "VS Code",  icon: "/icons/vscode.png"    },
+  { name: "Twitter", icon: "/icons/twitter.png" },
+  { name: "Drive", icon: "/icons/drive.png" },
+  { name: "Email", icon: "/icons/email.png" },
+  { name: "GitHub", icon: "/icons/github.png" },
+  { name: "File", icon: "/icons/file.png" },
+  { name: "Meet", icon: "/icons/meet.png" },
+  { name: "Safari", icon: "/icons/safari.png" },
+  { name: "Terminal", icon: "/icons/terminal.png" },
+  { name: "Chrome", icon: "/icons/chrome.png" },
+  { name: "VS Code", icon: "/icons/vscode.png" },
 ];
 
 const SPEED = 0.35; // radians per second
@@ -32,8 +32,8 @@ export default function Integrations() {
 
     /* Responsive orbit radii */
     const mobile = window.innerWidth < 768;
-    const rx = mobile ? 120 : 220;
-    const ry = mobile ? 50 : 75;
+    const rx = mobile ? 140 : 280;
+    const ry = mobile ? 60 : 100;
 
     // Logo zoom-in on scroll
     if (logoRef.current) {
@@ -151,44 +151,62 @@ export default function Integrations() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-40 bg-black overflow-hidden"
+      className="relative min-h-[100vh] py-20 bg-black overflow-hidden flex flex-col items-center justify-center"
     >
+      {/* Background Video */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/featuresBgVid.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        {/* Darkening overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+        {/* Top fade out */}
+        <div className="absolute top-0 left-0 right-0 h-[30%] bg-gradient-to-b from-black to-transparent" />
+        {/* Bottom fade out */}
+        <div className="absolute bottom-0 left-0 right-0 h-[30%] bg-gradient-to-t from-black to-transparent" />
+      </div>
+
       {/* Background glows */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] rounded-full bg-white/[0.015] blur-[100px]" />
         <div className="absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-white/[0.01] blur-[80px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-white/[0.01] blur-[80px]" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col md:grid md:grid-cols-[1fr_1.5fr] gap-8 md:gap-12 items-center">
-        {/* Left text — centred on mobile, left-aligned on desktop */}
-        <div ref={textRef} className="opacity-0 text-center md:text-left">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 flex flex-col gap-12 md:gap-0 items-center justify-center">
+        {/* Top text — centred on all devices */}
+        <div ref={textRef} className="opacity-0 text-center relative z-20">
           <h2
             className="text-3xl md:text-5xl text-white leading-tight italic"
             style={font}
           >
-            <span className="text-[#6cb4ee]">Construct</span> makes it
+            <span className="text-[#6cb4ee]">Construct</span> makes it all
             <br />
-            all possible
+            possible
           </h2>
-          <p className="mt-5 text-white/40 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+          <p className="mt-5 text-white/40 text-sm md:text-base leading-relaxed max-w-md mx-auto">
             Agents on Construct can control and manage all the application and
             functionalities available to the OS.
           </p>
         </div>
 
-        {/* Right: logo + orbiting icons */}
-        <div className="relative flex items-center justify-center min-h-[300px] md:min-h-[480px]">
+        {/* Bottom: logo + orbiting icons */}
+        <div className="relative flex items-center justify-center w-full min-h-[400px] md:min-h-[550px] -mt-4 md:-mt-24 pointer-events-none">
           {/* Centre logo */}
           <div
             ref={logoRef}
             className="relative z-10 opacity-0 flex items-center justify-center"
           >
-            <div className="absolute w-40 h-40 md:w-72 md:h-72 rounded-full bg-[#6cb4ee]/[0.07] blur-[60px] pointer-events-none" />
+            <div className="absolute w-44 h-44 md:w-80 md:h-80 rounded-full bg-[#6cb4ee]/[0.07] blur-[60px] pointer-events-none" />
             <img
               src="/logo.png"
               alt="Construct"
-              className="relative w-32 h-32 md:w-64 md:h-64 object-contain
+              className="relative w-40 h-40 md:w-80 md:h-80 object-contain
                          drop-shadow-[0_0_40px_rgba(108,180,238,0.15)]"
             />
           </div>
@@ -196,32 +214,35 @@ export default function Integrations() {
           {/* Orbiting icons — each starts centred, animated by rAF */}
           <div ref={orbitRef} className="absolute inset-0 pointer-events-none">
             <div className="relative w-full h-full">
-              {ICONS.map((app, i) => (
-                <div
-                  key={app.name}
-                  ref={(el) => {
-                    if (el) iconElsRef.current[i] = el;
-                  }}
-                  className="absolute opacity-0"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    width: 56,
-                    height: 56,
-                    marginLeft: -28,
-                    marginTop: -28,
-                    willChange: "transform, opacity",
-                  }}
-                >
-                  <img
-                    src={app.icon}
-                    alt={app.name}
-                    className="w-11 h-11 md:w-14 md:h-14 object-contain
-                               drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
-                    draggable={false}
-                  />
-                </div>
-              ))}
+              {ICONS.map((app, i) => {
+                const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+                return (
+                  <div
+                    key={app.name}
+                    ref={(el) => {
+                      if (el) iconElsRef.current[i] = el;
+                    }}
+                    className="absolute opacity-0"
+                    style={{
+                      left: "50%",
+                      top: "50%",
+                      width: isMobile ? 64 : 80,
+                      height: isMobile ? 64 : 80,
+                      marginLeft: isMobile ? -32 : -40,
+                      marginTop: isMobile ? -32 : -40,
+                      willChange: "transform, opacity",
+                    }}
+                  >
+                    <img
+                      src={app.icon}
+                      alt={app.name}
+                      className="w-full h-full object-contain
+                                 drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
+                      draggable={false}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

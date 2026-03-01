@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { animate } from "animejs";
+import WaitlistForm from "./WaitlistForm";
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
@@ -33,14 +34,11 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
         </div>
 
-        <a
-          href="#hero"
-          className="px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-white rounded-full no-underline
-                     border border-white/20 hover:border-white/40 transition-all duration-200
-                     bg-white/5 hover:bg-white/10"
-        >
-          Join Waitlist
-        </a>
+        <WaitlistForm
+          size="sm"
+          text="Join Waitlist"
+          className="!bg-white/5 hover:!bg-white/10 !border-white/20 hover:!border-white/40 !shadow-none font-medium !text-white/80"
+        />
       </div>
     </nav>
   );

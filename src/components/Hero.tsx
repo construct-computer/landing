@@ -24,10 +24,10 @@ export default function Hero() {
     // ── Force autoplay on mobile (iOS ignores autoplay attribute) ──
     const video = videoRef.current;
     if (video) {
-      video.play().catch(() => {});
+      video.play().catch(() => { });
       // Retry on visibility change (e.g. tab switch back)
       const onVisible = () => {
-        if (document.visibilityState === "visible") video.play().catch(() => {});
+        if (document.visibilityState === "visible") video.play().catch(() => { });
       };
       document.addEventListener("visibilitychange", onVisible);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -163,7 +163,7 @@ export default function Hero() {
 
         {/* CTA */}
         <div ref={ctaRef} className="mt-6 md:mt-8 opacity-0">
-          <WaitlistForm size="md" />
+          <WaitlistForm size="lg" />
         </div>
       </div>
     </section>

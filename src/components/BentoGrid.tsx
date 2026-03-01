@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import WaitlistForm from "./WaitlistForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -157,6 +158,9 @@ export default function BentoGrid() {
             to scale complex automations. The model improves and learns all
             the time
           </p>
+          <div className="mt-8">
+            <WaitlistForm size="md" text="Try it yourself" />
+          </div>
         </div>
 
         {/* Bento grid — 2 cols */}
@@ -248,7 +252,7 @@ export default function BentoGrid() {
             </div>
 
             {/* CLI terminal image — sticks to the right */}
-            <div ref={cliImgRef} className="absolute bottom-0 right-0 z-10 w-[75%] opacity-0">
+            <div ref={cliImgRef} className="absolute bottom-10 right-0 z-10 w-[85%] opacity-0">
               <img
                 src="/cli.png"
                 alt="CLI terminal"
@@ -293,7 +297,7 @@ export default function BentoGrid() {
             </div>
 
             {/* Work interface image — sticks to the bottom */}
-            <div ref={workImgRef} className="absolute bottom-0 left-16 right-16 z-0 opacity-0">
+            <div ref={workImgRef} className="absolute top-44 left-8 right-8 z-0 opacity-0">
               <img
                 src="/work.png"
                 alt="Work interface"
