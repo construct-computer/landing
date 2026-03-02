@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 
 const SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbxZMXiFmL1V-7jaiXWwFpoYzEN1uYILVwcRT3BlfTOgG89Dfe3XwvGMow1dD5NSdplS/exec";
+    "https://script.google.com/macros/s/AKfycbwaRZqjoeY5virReK6xblbih_SWHFo213tAty13WLSgdmJwKoLXYHL2nBXlcUVrmi4q/exec";
 
 interface Props {
     isOpen: boolean;
