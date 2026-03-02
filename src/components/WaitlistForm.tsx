@@ -10,12 +10,12 @@ interface Props {
 }
 
 const sizeStyles: Record<Size, string> = {
-  sm: "px-5 py-2 text-xs",
-  md: "px-6 py-2.5 text-sm",
+  sm: "px-5 py-2.5 text-xs min-h-[44px] flex items-center justify-center",
+  md: "px-6 py-2.5 text-sm min-h-[44px] flex items-center justify-center",
   lg: "px-8 py-3.5 text-base",
 };
 
-export default function WaitlistForm({ size = "md", className = "", text = "Get Started" }: Props) {
+export default function WaitlistForm({ size = "md", className = "", text = "Join Waitlist" }: Props) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const s = sizeStyles[size];

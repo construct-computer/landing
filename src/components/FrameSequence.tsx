@@ -189,7 +189,7 @@ export default function FrameSequence() {
         trigger: wrapper,
         start: "top top",
         end: "80% bottom",
-        scrub: 1.5,
+        scrub: 2,
       },
       onUpdate: () => {
         if (video.duration) {
@@ -247,7 +247,7 @@ export default function FrameSequence() {
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 h-screen w-full overflow-hidden"
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden"
       >
         {/* Canvas */}
         <canvas
@@ -281,6 +281,26 @@ export default function FrameSequence() {
             }}
           >
             <Dock />
+          </div>
+        )}
+
+        {/* Caption — anchored just below the Dock (desktop) or bottom of frame (mobile) */}
+        {dockVisible && bounds.w > 0 && (
+          <div
+            className="absolute left-0 right-0 z-[4] flex justify-center pointer-events-none transition-opacity duration-700"
+            style={{
+              top: isMobile
+                ? bounds.y + bounds.h - 24
+                : bounds.y + bounds.h - 18,
+              opacity: dockVisible ? 1 : 0,
+            }}
+          >
+            <span
+              className="text-white/40 text-xs md:text-sm tracking-wide"
+              style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic" }}
+            >
+              Your agent's workspace in the cloud
+            </span>
           </div>
         )}
 

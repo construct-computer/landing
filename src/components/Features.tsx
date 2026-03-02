@@ -153,7 +153,7 @@ export default function Features() {
   const font = { fontFamily: "Georgia, 'Times New Roman', serif" };
 
   return (
-    <section ref={sectionRef} className="relative pb-28 md:pb-40 -mt-[100vh] overflow-hidden z-10 w-full font-[Geist]">
+    <section ref={sectionRef} className="relative pb-16 md:pb-40 -mt-[100vh] overflow-hidden z-10 w-full font-[Geist]">
       {/* Top gradient: transparent to black — blends with frame fade */}
       <div className="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-transparent to-black pointer-events-none z-0" />
       {/* Black fill for the rest */}
@@ -162,11 +162,11 @@ export default function Features() {
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-white/[0.02] blur-3xl pointer-events-none z-0" />
 
-      <div ref={contentRef} className="relative z-10 w-full md:w-max max-w-[100vw] mx-auto px-1 md:px-6 text-center pt-[35vh] md:pt-[45vh] scale-100 origin-center ">
+      <div ref={contentRef} className="relative z-10 w-full md:w-max max-w-[100vw] mx-auto px-4 md:px-6 text-center pt-[25vh] md:pt-[45vh] scale-100 origin-center ">
         {/* Line 1 */}
-        <div ref={(el) => { linesRef.current[0] = el; }} className="mb-2 md:mb-4 flex items-center justify-center whitespace-nowrap gap-x-1 md:gap-x-2">
+        <div ref={(el) => { linesRef.current[0] = el; }} className="mb-2 md:mb-4 flex items-center justify-center flex-wrap md:flex-nowrap md:whitespace-nowrap gap-x-1 md:gap-x-2">
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-white font-medium">
-            Now, Managing Your <span className="text-[#6cb4ee] italic" style={font}>Mails,</span>
+            Now, Managing Your <span className="text-[#6cb4ee] italic" style={font}>Emails,</span>
           </span>
           <AppIcon src="/icons/email.png" alt="Mail" />
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-white font-medium">
@@ -175,9 +175,9 @@ export default function Features() {
         </div>
 
         {/* Line 2 */}
-        <div ref={(el) => { linesRef.current[1] = el; }} className="mb-2 md:mb-4 flex items-center justify-center whitespace-nowrap gap-x-1 md:gap-x-2">
+        <div ref={(el) => { linesRef.current[1] = el; }} className="mb-2 md:mb-4 flex items-center justify-center flex-wrap md:flex-nowrap md:whitespace-nowrap gap-x-1 md:gap-x-2">
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-white font-medium">
-            Handling <span className="text-[#6cb4ee] italic" style={font}>Codebase</span>
+            Handling Your <span className="text-[#6cb4ee] italic" style={font}>Codebase,</span>
           </span>
           <AppIcon src="/icons/github.png" alt="GitHub" />
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-white font-medium">
@@ -187,9 +187,9 @@ export default function Features() {
         </div>
 
         {/* Line 3 */}
-        <div ref={(el) => { linesRef.current[2] = el; }} className="flex items-center justify-center whitespace-nowrap gap-x-1 md:gap-x-2">
+        <div ref={(el) => { linesRef.current[2] = el; }} className="flex items-center justify-center flex-wrap md:flex-nowrap md:whitespace-nowrap gap-x-1 md:gap-x-2">
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-white font-medium">
-            Deep Searching on
+            Deep Research on
           </span>
           <AppIcon src="/icons/safari.png" alt="Safari" />
           <span className="feat-text text-[15px] sm:text-[20px] md:text-5xl text-[#6cb4ee] italic pr-1" style={font}>

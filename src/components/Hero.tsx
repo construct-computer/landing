@@ -23,15 +23,31 @@ export default function Hero() {
 
     // ── Force autoplay on mobile (iOS ignores autoplay attribute) ──
     const video = videoRef.current;
+    let videoObserver: IntersectionObserver | null = null;
     if (video) {
-      video.play().catch(() => { });
-      // Retry on visibility change (e.g. tab switch back)
+      // Play/pause based on visibility — most reliable on iOS
+      videoObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      videoObserver.observe(video);
+
+      // Also retry on tab switch back
       const onVisible = () => {
-        if (document.visibilityState === "visible") video.play().catch(() => { });
+        if (document.visibilityState === "visible") video.play().catch(() => {});
       };
       document.addEventListener("visibilitychange", onVisible);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (section as any).__cleanupVideo = () => document.removeEventListener("visibilitychange", onVisible);
+      (section as any).__cleanupVideo = () => {
+        document.removeEventListener("visibilitychange", onVisible);
+        videoObserver?.disconnect();
+      };
     }
 
     // ── Entrance animations (animejs) ──
@@ -101,7 +117,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-screen bg-black overflow-hidden"
+      className="relative h-[100dvh] bg-black overflow-hidden"
     >
       {/* Background video — portrait on mobile, landscape on desktop */}
       <video
@@ -136,7 +152,7 @@ export default function Hero() {
               letterSpacing: "0",
             }}
           >
-            <span className="text-[#6cb4ee]">AI Agent </span>That Works On
+            <span className="text-[#6cb4ee]">AI Agents </span>That Work on
             <br />
             Your <span className="text-[#6cb4ee]">Behalf</span>
           </h1>
@@ -147,7 +163,7 @@ export default function Hero() {
           ref={subRef}
           className="mt-4 md:mt-5 text-sm md:text-lg text-white/50 text-center max-w-xl leading-relaxed opacity-0 px-4"
         >
-          Deploy AI agents to the cloud. They research, code and create.
+          Deploy AI agents to the cloud. They research, code, and create.
           <br className="hidden md:block" />
           Scheduled, persistent, from any device.
         </p>
@@ -156,7 +172,7 @@ export default function Hero() {
         <img
           ref={logoRef}
           src="/logo.png"
-          alt="Construct Computer"
+          alt="Construct logo"
           className="mt-6 md:mt-8 w-36 h-36 md:w-64 md:h-64 object-contain opacity-0"
           draggable={false}
         />

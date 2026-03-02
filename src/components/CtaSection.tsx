@@ -23,16 +23,20 @@ export default function CtaSection() {
 
     // Play video when in view (force play for iOS)
     const video = videoRef.current;
+    let videoObserver: IntersectionObserver | null = null;
     if (video) {
-      const forcePlay = () => { video.play().catch(() => { }); };
-      triggers.push(ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 80%",
-        onEnter: forcePlay,
-        onEnterBack: forcePlay,
-        onLeaveBack: () => video.pause(),
-        onLeave: () => video.pause(),
-      }));
+      // IntersectionObserver — most reliable on iOS
+      videoObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      videoObserver.observe(video);
     }
 
     // Content reveal
@@ -83,6 +87,7 @@ export default function CtaSection() {
 
     return () => {
       triggers.forEach((t) => t.kill());
+      videoObserver?.disconnect();
     };
   }, []);
 
@@ -108,7 +113,7 @@ export default function CtaSection() {
         <img
           ref={logoRef}
           src="/logo.png"
-          alt="Construct Computer"
+          alt="Construct logo"
           className="w-20 h-20 md:w-36 md:h-36 object-contain mb-6 md:mb-8 opacity-0"
         />
 
@@ -117,14 +122,14 @@ export default function CtaSection() {
           className="text-3xl md:text-5xl font-normal italic text-white leading-tight opacity-0"
           style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
         >
-          Be The First To Try
+          Be the First to Experience
           <br />
-          The Most Powerful{" "}
-          <span className="text-[#6cb4ee]">Agentic Protocol</span>
+          the Future of{" "}
+          <span className="text-[#6cb4ee]">AI Agents</span>
         </h2>
 
         <p ref={subRef} className="mt-4 md:mt-6 text-white/50 text-sm md:text-lg max-w-lg opacity-0 px-4">
-          Join our wait list and, become part of the new meta.
+          Join our waitlist for early access to autonomous agents that work, learn, and scale on your behalf.
         </p>
 
         <div ref={btnRef} className="mt-8 md:mt-10 opacity-0">

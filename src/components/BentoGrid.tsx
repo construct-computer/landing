@@ -150,16 +150,16 @@ export default function BentoGrid() {
             className="text-3xl md:text-5xl text-white italic leading-tight"
             style={font}
           >
-            Scalable, Flexible and a{" "}
-            <span className="text-[#6cb4ee]">Scholar</span>
+            Scalable, Flexible, and Always{" "}
+            <span className="text-[#6cb4ee]">Learning</span>
           </h2>
           <p className="mt-4 text-white/40 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
-            Agent on Construct can utilize it's assets, using cloud and compute
-            to scale complex automations. The model improves and learns all
-            the time
+            Agents on Construct leverage cloud computing to scale complex
+            automations. They build persistent memory across sessions, so
+            every interaction sharpens their results.
           </p>
-          <div className="mt-8">
-            <WaitlistForm size="md" text="Try it yourself" />
+          <div className="mt-8 flex justify-center">
+            <WaitlistForm size="md" text="Get Early Access" />
           </div>
         </div>
 
@@ -199,7 +199,7 @@ export default function BentoGrid() {
               {/* Text at bottom */}
               <div>
                 <h3
-                  className="text-lg md:text-xl text-white italic text-center leading-snug"
+                  className="text-xl text-white italic text-center leading-snug"
                   style={font}
                 >
                   It Tells You When
@@ -208,8 +208,8 @@ export default function BentoGrid() {
                   <span className="text-[#6cb4ee]">Relax A Bit</span>
                 </h3>
                 <p className="mt-3 text-white/40 text-xs text-center leading-relaxed max-w-[280px] mx-auto">
-                  Agents on Construct notifies you of the progress and completion
-                  via mail or on telegram
+                  Agents on Construct notify you of progress and completion
+                  via email or Telegram.
                 </p>
               </div>
             </div>
@@ -220,7 +220,7 @@ export default function BentoGrid() {
             ref={(el) => {
               cardsRef.current[1] = el;
             }}
-            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 aspect-[1/2]"
+            className="relative rounded-2xl border border-white/[0.06] overflow-hidden opacity-0 md:row-span-2 aspect-auto md:aspect-[1/2] min-h-[400px]"
           >
             {/* blur3 background — purple/cyan diagonal */}
             <img
@@ -234,29 +234,29 @@ export default function BentoGrid() {
             {/* Top edge highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-            <div className="relative z-10 p-7 pt-14 flex flex-col h-full">
+            <div className="relative z-10 p-5 pt-8 md:p-7 md:pt-14 flex flex-col">
               <h3
-                className="text-lg md:text-xl text-white italic text-center leading-snug"
+                className="text-xl text-white italic text-center leading-snug"
                 style={font}
               >
-                Accountable and Logged
+                Autonomous, Accountable,
                 <br />
-                On the <span className="text-[#6cb4ee]">Cloud.</span>
+                and Logged on the <span className="text-[#6cb4ee]">Cloud.</span>
               </h3>
-              <p className="mt-3 text-white/50 text-xs text-center leading-relaxed max-w-[300px] mx-auto">
-                Agents on Construct maintain every record of their action. These
-                records are on the cloud and can be accessed from everywhere
+              <p className="mt-2 md:mt-3 text-white/50 text-[11px] md:text-xs text-center leading-relaxed max-w-[280px] md:max-w-[300px] mx-auto">
+                Agents manage their own resources, spawn sub-agents, and track
+                every action. Full logs are stored on the cloud and accessible
+                from anywhere.
               </p>
-
 
             </div>
 
-            {/* CLI terminal image — sticks to the right */}
-            <div ref={cliImgRef} className="absolute bottom-10 right-0 z-10 w-[85%] opacity-0">
+            {/* CLI image — half-height right-aligned on mobile, absolute on desktop */}
+            <div ref={cliImgRef} className="absolute right-0 bottom-0 w-[90%] h-1/2 md:h-auto md:bottom-10 md:w-[85%] opacity-0">
               <img
                 src="/cli.png"
                 alt="CLI terminal"
-                className="w-full"
+                className="w-full h-full object-cover object-left-top md:object-contain md:h-auto rounded-tl-lg md:rounded-lg"
                 draggable={false}
               />
             </div>
@@ -279,25 +279,26 @@ export default function BentoGrid() {
             {/* Top edge highlight */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-            <div className="relative z-10 p-7 flex flex-col h-full">
+            <div className="relative z-10 p-5 md:p-7 flex flex-col h-full">
               <h3
-                className="text-lg md:text-xl text-white italic text-center leading-snug"
+                className="text-xl text-white italic text-center leading-snug"
                 style={font}
               >
-                Pick Where You Left
+                Pick Up Where You Left Off
                 <br />
                 Your Agent Has{" "}
                 <span className="text-[#6cb4ee]">Improved</span>
               </h3>
-              <p className="mt-3 text-white/40 text-xs text-center leading-relaxed max-w-[280px] mx-auto">
-                Agents on Construct keeps scraping and researching. And provides
-                better result after every left conversation
+              <p className="mt-2 md:mt-3 text-white/40 text-[11px] md:text-xs text-center leading-relaxed max-w-[260px] md:max-w-[280px] mx-auto">
+                Agents on Construct build memory across sessions — retaining
+                context, sources, and preferences to deliver sharper results
+                every time you return.
               </p>
 
             </div>
 
             {/* Work interface image — sticks to the bottom */}
-            <div ref={workImgRef} className="absolute top-44 left-8 right-8 z-0 opacity-0">
+            <div ref={workImgRef} className="absolute top-36 md:top-44 left-4 right-4 md:left-8 md:right-8 z-0 opacity-0">
               <img
                 src="/work.png"
                 alt="Work interface"

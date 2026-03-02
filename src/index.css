@@ -2,6 +2,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 
@@ -128,7 +129,14 @@ html {
     @apply bg-black text-white;
     margin: 0;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth scroll-driven animations */
+  canvas,
+  video {
+    will-change: transform;
   }
 }

@@ -26,9 +26,27 @@ export default function Integrations() {
   const orbitRef = useRef<HTMLDivElement>(null);
   const iconElsRef = useRef<HTMLDivElement[]>([]);
   const rafRef = useRef<number>(0);
+  const bgVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
+
+    // ── Force autoplay on iOS — play/pause based on visibility ──
+    let videoObserver: IntersectionObserver | null = null;
+    const bgVideo = bgVideoRef.current;
+    if (bgVideo) {
+      videoObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            bgVideo.play().catch(() => {});
+          } else {
+            bgVideo.pause();
+          }
+        },
+        { threshold: 0.1 }
+      );
+      videoObserver.observe(bgVideo);
+    }
 
     /* Responsive orbit radii */
     const mobile = window.innerWidth < 768;
@@ -140,6 +158,7 @@ export default function Integrations() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
+      videoObserver?.disconnect();
       ScrollTrigger.getAll()
         .filter((t) => sectionRef.current?.contains(t.trigger as Element))
         .forEach((t) => t.kill());
@@ -151,17 +170,19 @@ export default function Integrations() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[100vh] py-20 bg-black overflow-hidden flex flex-col items-center justify-center"
+      className="relative min-h-[100dvh] py-20 bg-black overflow-hidden flex flex-col items-center justify-center"
     >
       {/* Background Video */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <video
+          ref={bgVideoRef}
           className="absolute inset-0 w-full h-full object-cover"
           src="/featuresBgVid.mp4"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
         />
         {/* Darkening overlay */}
         <div className="absolute inset-0 bg-black/60" />
@@ -185,13 +206,14 @@ export default function Integrations() {
             className="text-3xl md:text-5xl text-white leading-tight italic"
             style={font}
           >
-            <span className="text-[#6cb4ee]">Construct</span> makes it all
+            Not Where your Agent Runs,
             <br />
-            possible
+            but Where your Agent{" "}
+            <span className="text-[#6cb4ee]">Lives.</span>
           </h2>
           <p className="mt-5 text-white/40 text-sm md:text-base leading-relaxed max-w-md mx-auto">
-            Agents on Construct can control and manage all the application and
-            functionalities available to the OS.
+            Agents on Construct live on a cloud OS — with access to browsers,
+            terminals, email, code editors, and more.
           </p>
         </div>
 

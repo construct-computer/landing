@@ -44,28 +44,28 @@ export default function Footer() {
                 className="w-6 h-6 object-contain"
               />
               <span className="text-white font-medium text-lg italic" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
-                ConstructComputer
+                Construct
               </span>
             </div>
             <span className="text-white/40 text-xs  tracking-wide"
 
             >
-              @2026 Construct Computer. All rights reserved.
+               &copy; 2026 Construct. All rights reserved.
             </span>
           </div>
 
           {/* Center: Links */}
-          <div className="flex flex-col items-center md:items-start gap-3 text-xs text-white/70">
-            <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+          <div className="flex flex-col items-center md:items-start gap-1 text-xs text-white/70">
+            <a href="#" className="hover:text-white transition-colors py-2 px-1">Terms & Conditions</a>
+            <a href="#" className="hover:text-white transition-colors py-2 px-1">Privacy Policy</a>
           </div>
 
           {/* Right: Social Icons */}
           <div className="flex items-center gap-5 opacity-60">
-            <a href="https://x.com/use_construct" target="_blank" className="hover:opacity-100 transition-opacity">
+            <a href="https://x.com/use_construct" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity p-3">
               <img src="/x-icon.png" alt="X / Twitter" className="w-5 h-5 object-contain" />
             </a>
-            <a href="https://discord.gg/puArEQHYN9" target="_blank" className="hover:opacity-100 transition-opacity">
+            <a href="https://discord.gg/puArEQHYN9" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity p-3">
               <img src="/discord-Icon.png" alt="Discord" className="w-6 h-6 object-contain" />
             </a>
           </div>
