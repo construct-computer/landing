@@ -163,9 +163,9 @@ export default function Hero() {
           ref={subRef}
           className="mt-4 md:mt-5 text-sm md:text-lg text-white/50 text-center max-w-xl leading-relaxed opacity-0 px-4"
         >
-          Deploy AI agents to the cloud. They research, code, and create.
+          Persistent AI agents with their own cloud computer.
           <br className="hidden md:block" />
-          Scheduled, persistent, from any device.
+          Watch them work in real-time from your web desktop.
         </p>
 
         {/* Logo */}
