@@ -41,17 +41,17 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <img
                 src="/construictbwicon.png"
-                alt="Construct"
+                alt="Construct Computer"
                 className="w-6 h-6 object-contain"
               />
               <span className="text-white font-medium text-lg italic" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
-                Construct
+                Construct Computer
               </span>
             </div>
             <span className="text-white/40 text-xs  tracking-wide"
 
             >
-               &copy; 2026 Construct. All rights reserved.
+               &copy; 2026 Construct Computer. All rights reserved.
             </span>
           </div>
 
