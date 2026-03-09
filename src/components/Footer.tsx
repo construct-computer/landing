@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -56,8 +57,8 @@ export default function Footer() {
 
           {/* Center: Links */}
           <div className="flex flex-col items-center md:items-start gap-1 text-xs text-white/70">
-            <a href="#" className="hover:text-white transition-colors py-2 px-1">Terms & Conditions</a>
-            <a href="#" className="hover:text-white transition-colors py-2 px-1">Privacy Policy</a>
+            <Link to="/terms" className="hover:text-white transition-colors py-2 px-1">Terms & Conditions</Link>
+            <Link to="/privacy" className="hover:text-white transition-colors py-2 px-1">Privacy Policy</Link>
           </div>
 
           {/* Right: Social Icons */}

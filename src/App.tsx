@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import FrameSequence from "./components/FrameSequence";
@@ -7,8 +8,10 @@ import Integrations from "./components/Integrations";
 import BentoGrid from "./components/BentoGrid";
 import CtaSection from "./components/CtaSection";
 import Footer from "./components/Footer";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsConditions from "./pages/TermsConditions";
 
-function App() {
+function HomePage() {
   const [ready, setReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -152,6 +155,16 @@ function App() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/terms" element={<TermsConditions />} />
+    </Routes>
   );
 }
 
