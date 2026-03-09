@@ -152,9 +152,9 @@ export default function Hero() {
               letterSpacing: "0",
             }}
           >
-            <span className="text-[#6cb4ee]">AI Agents </span>That Work on
+            A <span className="text-[#6cb4ee]">Personal Computer</span> in the Cloud
             <br />
-            Your <span className="text-[#6cb4ee]">Behalf</span>
+            Powered by <span className="text-[#6cb4ee]">AI</span>
           </h1>
         </div>
 
@@ -163,9 +163,11 @@ export default function Hero() {
           ref={subRef}
           className="mt-4 md:mt-5 text-sm md:text-lg text-white/50 text-center max-w-xl leading-relaxed opacity-0 px-4"
         >
-          Persistent AI agents with their own cloud computer.
+          An AI agent that browses the web, writes code, manages files,
           <br className="hidden md:block" />
-          Watch them work in real-time from your web desktop.
+          and syncs with your Google Calendar and Drive.
+          <br className="hidden md:block" />
+          Watch it work in real-time from your browser.
         </p>
 
         {/* Logo */}
