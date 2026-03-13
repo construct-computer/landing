@@ -9,6 +9,8 @@ import CtaSection from "./components/CtaSection";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
+import SubProcessors from "./pages/SubProcessors";
+import Support from "./pages/Support";
 
 function HomePage() {
   return (
@@ -33,6 +35,8 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsConditions />} />
+      <Route path="/sub-processors" element={<SubProcessors />} />
+      <Route path="/support" element={<Support />} />
     </Routes>
   );
 }

@@ -59,6 +59,8 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start gap-1 text-xs text-white/70">
             <Link to="/terms" className="hover:text-white transition-colors py-2 px-1">Terms & Conditions</Link>
             <Link to="/privacy" className="hover:text-white transition-colors py-2 px-1">Privacy Policy</Link>
+            <Link to="/sub-processors" className="hover:text-white transition-colors py-2 px-1">Sub-Processors</Link>
+            <Link to="/support" className="hover:text-white transition-colors py-2 px-1">Support</Link>
           </div>
 
           {/* Right: Social Icons */}
