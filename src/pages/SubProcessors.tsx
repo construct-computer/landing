@@ -114,6 +114,15 @@ export default function SubProcessors() {
                   </tr>
                   <tr className="border-b border-white/5">
                     <td className="py-3 px-2 text-white font-medium">
+                      Resend, Inc.
+                    </td>
+                    <td className="py-3 px-2">
+                      Transactional email delivery
+                    </td>
+                    <td className="py-3 px-2">United States</td>
+                  </tr>
+                  <tr className="border-b border-white/5">
+                    <td className="py-3 px-2 text-white font-medium">
                       Contabo GmbH
                     </td>
                     <td className="py-3 px-2">
@@ -241,6 +250,22 @@ export default function SubProcessors() {
             <p className="mt-3">
               AgentMail processes email data solely for the purpose of delivery
               and does not use message content for training or other purposes.
+            </p>
+          </section>
+
+          <section>
+            <h2
+              className="text-white text-lg italic tracking-tight mb-3"
+              style={font}
+            >
+              Resend
+            </h2>
+            <p>
+              Resend provides transactional email delivery for authentication.
+              When a user signs in via email magic link, their email address is
+              shared with Resend solely to deliver the sign-in email. Resend does
+              not store email addresses beyond what is necessary for delivery and
+              does not use them for marketing or other purposes.
             </p>
           </section>
 
